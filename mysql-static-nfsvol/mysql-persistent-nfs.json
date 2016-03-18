@@ -172,7 +172,7 @@
             "description": "NFS Server Hostname or IP Addresss",
             "value": "<my nfs server>",
             "required": true
-        }
+        },
         {
             "name": "NFS_PATH",
             "description": "NFS Mount Path",
