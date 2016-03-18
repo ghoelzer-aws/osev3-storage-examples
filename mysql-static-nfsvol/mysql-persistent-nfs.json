@@ -2,14 +2,10 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-        "name": "mysql-persistent",
+        "name": "mysql-persistent-nfs",
         "namespace": "openshift",
-        "selfLink": "/oapi/v1/namespaces/openshift/templates/mysql-persistent",
-        "uid": "a9337398-948b-11e5-8592-5254006c045d",
-        "resourceVersion": "10087",
-        "creationTimestamp": "2015-11-26T22:18:46Z",
         "annotations": {
-            "description": "MySQL database service, with persistent storage. Scaling to more than one replica is not supported",
+            "description": "MySQL database service, with persistent storage using statically defined NFS Server/Mount Path. Scaling to more than one replica is not supported",
             "iconClass": "icon-mysql-database",
             "tags": "database,mysql"
         }
@@ -41,23 +37,6 @@
             },
             "status": {
                 "loadBalancer": {}
-            }
-        },
-        {
-            "kind": "PersistentVolumeClaim",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${DATABASE_SERVICE_NAME}"
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
-                    }
-                }
             }
         },
         {
@@ -147,8 +126,9 @@
                         "volumes": [
                             {
                                 "name": "${DATABASE_SERVICE_NAME}-data",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${DATABASE_SERVICE_NAME}"
+                                "nfs": {
+                                    "path": "${NFS_PATH}",
+                                    "server": "${NFS_SERVER}"
                                 }
                             }
                         ],
@@ -188,9 +168,15 @@
             "required": true
         },
         {
-            "name": "VOLUME_CAPACITY",
-            "description": "Volume space available for data, e.g. 512Mi, 2Gi",
-            "value": "512Mi",
+            "name": "NFS_SERVER",
+            "description": "NFS Server Hostname or IP Addresss",
+            "value": "<my nfs server>",
+            "required": true
+        }
+        {
+            "name": "NFS_PATH",
+            "description": "NFS Mount Path",
+            "value": "/",
             "required": true
         }
     ],
