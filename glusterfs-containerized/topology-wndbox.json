@@ -15,7 +15,7 @@
                       "zone": 1
                   },
                   "devices": [
-                      "/dev/sdb"
+                      "/dev/rhel/lv_gluster_brick1"
                   ]
               },
                 {
@@ -31,7 +31,7 @@
                         "zone": 1
                     },
                     "devices": [
-                        "/dev/sdb"
+                        "/dev/vg_0bf5834271399c9b70d69c1e7a2dd71d/lv_gluster_brick1"
                     ]
                 },
                 {
@@ -47,7 +47,7 @@
                         "zone": 1
                     },
                     "devices": [
-                        "/dev/sdb"
+                        "/dev/vg_4a4b4a79256d03077ffab854ab37fc07/lv_gluster_brick1"
                     ]
                 }
             ]
