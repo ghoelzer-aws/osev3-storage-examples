@@ -2,6 +2,22 @@
     "clusters": [
         {
             "nodes": [
+              {
+                  "node": {
+                      "hostnames": {
+                          "manage": [
+                              "master01.wndbox.kontainergarden.io"
+                          ],
+                          "storage": [
+                              "master01.wndbox.kontainergarden.io"
+                          ]
+                      },
+                      "zone": 1
+                  },
+                  "devices": [
+                      "/dev/sdb"
+                  ]
+              },
                 {
                     "node": {
                         "hostnames": {
