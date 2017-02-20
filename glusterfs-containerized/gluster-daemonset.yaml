@@ -39,7 +39,7 @@ spec:
           name: brickpath
         - mountPath: /var/lib/glusterd
           name: gluster-varlib
-        - mountPath: /var/log/glusterd
+        - mountPath: /var/log/glusterfs
           name: gluster-varlog
       dnsPolicy: ClusterFirst
       hostNetwork: true
@@ -52,11 +52,11 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
       - hostPath:
-          path: /mnt/brick1
+          path: /var/mnt/brick1
         name: brickpath
       - hostPath:
-          path: /mnt/glusterd-varlib
+          path: /var/mnt/glusterd-varlib
         name: gluster-varlib
       - hostPath:
-          path: /mnt/glusterd-varlog
+          path: /var/mnt/glusterfs-varlog
         name: gluster-varlog
