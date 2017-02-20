@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  creationTimestamp: 2017-02-12T23:07:46Z
+  generation: 2
+  labels:
+    component: gluster
+    provider: openshift
+  name: gluster
+  namespace: gluster
+spec:
+  selector:
+    matchLabels:
+      component: gluster
+      provider: openshift
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        component: gluster
+        provider: openshift
+      name: gluster
+    spec:
+      containers:
+      - image: rhgs3/rhgs-server-rhel7:latest
+        imagePullPolicy: IfNotPresent
+        name: gluster
+        ports:
+        - containerPort: 80
+          hostPort: 80
+          name: web
+          protocol: TCP
+        resources: {}
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - mountPath: /mnt/brick1
+          name: brickpath
+        - mountPath: /var/lib/glusterd
+          name: gluster-varlib
+        - mountPath: /var/log/glusterd
+          name: gluster-varlog
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      nodeSelector:
+        storagenode: glusterfs
+      restartPolicy: Always
+      securityContext: {}
+      serviceAccount: gluster
+      serviceAccountName: gluster
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /mnt/brick1
+        name: brickpath
+      - hostPath:
+          path: /mnt/glusterd-varlib
+        name: gluster-varlib
+      - hostPath:
+          path: /mnt/glusterd-varlog
+        name: gluster-varlog
